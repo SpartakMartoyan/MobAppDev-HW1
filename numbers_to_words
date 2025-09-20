@@ -1,0 +1,85 @@
+void main() {
+  // Test cases
+  List<int> testNumbers = [
+    0,
+    6,
+    42,
+    123,
+    900,
+    8379,
+    1234567,
+    1000000,
+    999999999
+  ];
+
+  for (var number in testNumbers) {
+    print('$number → "${numberToWords(number)}"');
+  }
+}
+
+// Arrays for words
+final List<String> ones = [
+  '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
+];
+
+final List<String> teens = [
+  'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen',
+  'seventeen', 'eighteen', 'nineteen'
+];
+
+final List<String> tens = [
+  '', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
+];
+
+// Main function to convert number to words
+String numberToWords(int number) {
+  if (number == 0) return 'zero';
+
+  String result = '';
+
+  // Millions
+  if (number >= 1000000) {
+    int millions = number ~/ 1000000;
+    result += '${_convertHundreds(millions)} million';
+    number %= 1000000;
+  }
+
+  // Thousands
+  if (number >= 1000) {
+    if (result.isNotEmpty) result += ' ';
+    int thousands = number ~/ 1000;
+    result += '${_convertHundreds(thousands)} thousand';
+    number %= 1000;
+  }
+
+  // Hundreds and below
+  if (number > 0) {
+    if (result.isNotEmpty) result += ' ';
+    result += _convertHundreds(number);
+  }
+
+  return result;
+}
+
+// Helper to convert 1–999
+String _convertHundreds(int number) {
+  String result = '';
+
+  if (number >= 100) {
+    result += '${ones[number ~/ 100]} hundred';
+    number %= 100;
+    if (number > 0) result += ' ';
+  }
+
+  if (number >= 10 && number <= 19) {
+    result += teens[number - 10];
+  } else if (number >= 20) {
+    result += tens[number ~/ 10];
+    number %= 10;
+    if (number > 0) result += ' ${ones[number]}';
+  } else if (number > 0) {
+    result += ones[number];
+  }
+
+  return result;
+}
