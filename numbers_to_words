@@ -1,5 +1,4 @@
 void main() {
-  // Test cases
   List<int> testNumbers = [
     0,
     6,
@@ -17,7 +16,6 @@ void main() {
   }
 }
 
-// Arrays for words
 final List<String> ones = [
   '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'
 ];
@@ -31,20 +29,17 @@ final List<String> tens = [
   '', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
 ];
 
-// Main function to convert number to words
 String numberToWords(int number) {
   if (number == 0) return 'zero';
 
   String result = '';
 
-  // Millions
   if (number >= 1000000) {
     int millions = number ~/ 1000000;
     result += '${_convertHundreds(millions)} million';
     number %= 1000000;
   }
 
-  // Thousands
   if (number >= 1000) {
     if (result.isNotEmpty) result += ' ';
     int thousands = number ~/ 1000;
@@ -52,7 +47,6 @@ String numberToWords(int number) {
     number %= 1000;
   }
 
-  // Hundreds and below
   if (number > 0) {
     if (result.isNotEmpty) result += ' ';
     result += _convertHundreds(number);
@@ -61,7 +55,6 @@ String numberToWords(int number) {
   return result;
 }
 
-// Helper to convert 1–999
 String _convertHundreds(int number) {
   String result = '';
 
